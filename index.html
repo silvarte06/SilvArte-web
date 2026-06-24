@@ -1,13 +1,511 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SilvArte</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SilvArte</title>
+
+  <style>
+    :root {
+      --crema:#FAF7F2;
+      --blanco:#FFFFFF;
+      --dorado:#D4AF37;
+      --texto:#4A433D;
+      --gris:#8A8074;
+      --borde:#EFE7DA;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--crema);
+      color: var(--texto);
+      padding-bottom: 150px;
+    }
+
+    header {
+      background: var(--blanco);
+      padding: 18px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--borde);
+    }
+
+    header img {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    nav a {
+      margin-left: 18px;
+      text-decoration: none;
+      color: var(--texto);
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: var(--dorado);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      padding: 70px 8%;
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      font-family: Georgia, serif;
+      margin-bottom: 10px;
+    }
+
+    .hero h2 {
+      color: var(--dorado);
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      line-height: 1.7;
+      color: var(--gris);
+      margin-bottom: 25px;
+    }
+
+    .hero img {
+      width: 100%;
+      border-radius: 25px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+
+    .btn-dark {
+      background: var(--texto);
+      color: white;
+    }
+
+    .btn-light {
+      border: 1px solid var(--dorado);
+      color: var(--texto);
+      background: white;
+    }
+
+    section {
+      padding: 55px 8%;
+    }
+
+    .section-title {
+      text-align: center;
+      font-family: Georgia, serif;
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+
+    .section-text {
+      text-align: center;
+      color: var(--gris);
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+
+    .sub-title {
+      font-size: 1.5rem;
+      margin: 35px 0 20px;
+      border-left: 4px solid var(--dorado);
+      padding-left: 12px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--blanco);
+      border: 1px solid var(--borde);
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    .card h4 {
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: var(--gris);
+      font-size: 0.9rem;
+      line-height: 1.4;
+      margin-bottom: 14px;
+    }
+
+    .card button {
+      width: 100%;
+      padding: 10px;
+      border-radius: 25px;
+      border: 1px solid var(--dorado);
+      background: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .card button.selected {
+      background: var(--dorado);
+      color: white;
+    }
+
+    .selection-box {
+      position: fixed;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 92%;
+      max-width: 760px;
+      background: white;
+      border: 1px solid var(--dorado);
+      border-radius: 18px;
+      padding: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      z-index: 99;
+    }
+
+    .selection-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .selection-actions button {
+      flex: 1;
+      padding: 12px;
+      border-radius: 25px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .clear-btn {
+      background: #eee;
+    }
+
+    .whatsapp-btn {
+      background: #25D366;
+      color: white;
+    }
+
+    .contact {
+      background: white;
+      text-align: center;
+    }
+
+    @media(max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .card img {
+        height: 170px;
+      }
+
+      .selection-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<h1>SilvArte</h1>
+<header>
+  <img src="logo-silvarte.png" alt="Logo SilvArte">
+  <nav>
+    <a href="#inicio">Inicio</a>
+    <a href="#catalogo">Catálogo</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+</header>
+
+<main>
+
+<section id="inicio" class="hero">
+  <div>
+    <h1>SilvArte</h1>
+    <h2>Todo hecho con amor para ti.</h2>
+    <p>
+      SilvArte es un emprendimiento dedicado a crear accesorios, detalles y artículos personalizados
+      pensados para convertir momentos especiales en recuerdos únicos. Trabajamos accesorios, sublimación
+      y sets de regalo para diferentes ocasiones.
+    </p>
+    <a class="btn btn-dark" href="#catalogo">Ver catálogo</a>
+    <a class="btn btn-light" href="https://wa.me/18097642522" target="_blank">Pedir por WhatsApp</a>
+  </div>
+
+  <img src="foto-inicio.jpg" alt="Foto principal de SilvArte">
+</section>
+
+<section id="catalogo">
+  <h2 class="section-title">Catálogo</h2>
+  <p class="section-text">
+    Selecciona los productos que te interesen y envíanos tu lista por WhatsApp para cotizar precio,
+    disponibilidad y personalización.
+  </p>
+
+  <h3 class="sub-title">Accesorios</h3>
+  <div class="grid">
+    <div class="card">
+      <img src="brazalete-1.jpg" alt="Brazalete personalizado">
+      <h4>Brazalete Flores Rosadas</h4>
+      <p>Brazalete artesanal con diseño delicado.</p>
+      <button data-product="Brazalete Flores Rosadas">Agregar a mi selección</button>
+    </div>
+
+    <div class="card">
+      <img src="brazalete-2.jpg" alt="Brazalete personalizado">
+      <h4>Brazalete Lilas & Blancas</h4>
+      <p>Accesorio femenino hecho a mano.</p>
+      <button data-product="Brazalete Lilas & Blancas">Agregar a mi selección</button>
+    </div>
+
+    <div class="card">
+      <img src="brazalete-3.jpg" alt="Brazaletes personalizados">
+      <h4>Set Brazaletes Delgados</h4>
+      <p>Set ideal para combinar o regalar.</p>
+      <button data-product="Set Brazaletes Delgados">Agregar a mi selección</button>
+    </div>
+
+    <div class="card">
+      <img src="brazalete-4.jpg" alt="Brazalete perlas">
+      <h4>Brazalete Perlas Blancas</h4>
+      <p>Diseño minimalista y elegante.</p>
+      <button data-product="Brazalete Perlas Blancas">Agregar a mi selección</button>
+    </div>
+
+    <div class="card">
+      <img src="collar-1.jpg" alt="Collar personalizado">
+      <h4>Collar Personalizado</h4>
+      <p>Collar con diseño a elección.</p>
+      <button data-product="Collar Personalizado">Agregar a mi selección</button>
+    </div>
+
+    <div class="card">
+      <img src="arete-1.jpg" alt="Aretes personalizados">
+      <h4>Aretes Personalizados</h4>
+      <p>Aretes disponibles en distintos estilos.</p>
+      <button data-product="Aretes Personalizados">Agregar a mi selección</button>
+    </div>
+
+    <div class="card">
+      <img src="anillo-1.jpg" alt="Anillos personalizados">
+      <h4>Anillos Personalizados</h4>
+      <p>Anillos delicados para uso diario o regalo.</p>
+      <button data-product="Anillos Personalizados">Agregar a mi selección</button>
+    </div>
+
+    <div class="card">
+      <img src="otros-1.jpg" alt="Otros accesorios">
+      <h4>Otros Accesorios</h4>
+      <p>Charms para celular, Crocs, tenis y más.</p>
+      <button data-product="Otros Accesorios">Agregar a mi selección</button>
+    </div>
+  </div>
+
+  <h3 class="sub-title">Sublimación</h3>
+  <div class="grid">
+    <div class="card">
+      <img src="1001641870.jpg" alt="Taza personalizada">
+      <h4>Tazas Personalizadas</h4>
+      <p>Tazas con nombres, frases, fotos o diseños.</p>
+      <button data-product="Tazas Personalizadas">Agregar a mi selección</button>
+    </div>
+
+    <div class="card">
+      <img src="1001641882.jpg" alt="Termo personalizado">
+      <h4>Termos Personalizados</h4>
+      <p>Termos con diseño a elección.</p>
+      <button data-product="Termos Personalizados">Agregar a mi selección</button>
+    </div>
+
+    <div class="card">
+      <img src="1001641934.jpg" alt="Camiseta personalizada">
+      <h4>Camisetas Personalizadas</h4>
+      <p>Camisetas para regalos, eventos o uso diario.</p>
+      <button data-product="Camisetas Personalizadas">Agregar a mi selección</button>
+    </div>
+
+    <div class="card">
+      <img src="1001641927.jpg" alt="Abrigo personalizado">
+      <h4>Abrigos Personalizados</h4>
+      <p>Abrigos con diseños exclusivos.</p>
+      <button data-product="Abrigos Personalizados">Agregar a mi selección</button>
+    </div>
+
+    <div class="card">
+      <img src="1001641947.jpg" alt="Llaveros personalizados">
+      <h4>Llaveros Personalizados</h4>
+      <p>Llaveros con nombres, imágenes o frases.</p>
+      <button data-product="Llaveros Personalizados">Agregar a mi selección</button>
+    </div>
+
+    <div class="card">
+      <img src="1001641945.jpg" alt="Jarra personalizada">
+      <h4>Jarra Cervecera Personalizada</h4>
+      <p>Jarras con frases, logos o diseños.</p>
+      <button data-product="Jarra Cervecera Personalizada">Agregar a mi selección</button>
+    </div>
+  </div>
+
+  <h3 class="sub-title">Sets de Regalo</h3>
+  <div class="grid">
+    <div class="card">
+      <img src="1001641949.jpg" alt="Set de regalo">
+      <h4>Set Día de las Madres</h4>
+      <p>Caja de regalo personalizada para ocasiones especiales.</p>
+      <button data-product="Set Día de las Madres">Agregar a mi selección</button>
+    </div>
+
+    <div class="card">
+      <img src="1001641956.jpg" alt="Set San Valentín">
+      <h4>Set San Valentín</h4>
+      <p>Detalle especial para pareja o amistad.</p>
+      <button data-product="Set San Valentín">Agregar a mi selección</button>
+    </div>
+
+    <div class="card">
+      <img src="1001640541.jpg" alt="Set Día del Padre">
+      <h4>Set Día del Padre</h4>
+      <p>Regalo personalizado para papá.</p>
+      <button data-product="Set Día del Padre">Agregar a mi selección</button>
+    </div>
+
+    <div class="card">
+      <img src="1001641950.jpg" alt="Caja personalizada">
+      <h4>Caja Personalizada SilvArte</h4>
+      <p>Arma tu caja con los productos que prefieras.</p>
+      <button data-product="Caja Personalizada SilvArte">Agregar a mi selección</button>
+    </div>
+  </div>
+</section>
+
+<section id="contacto" class="contact">
+  <h2 class="section-title">Contacto</h2>
+  <p class="section-text">
+    Escríbenos para cotizar tus productos, diseños y disponibilidad.
+  </p>
+
+  <a class="btn btn-dark" href="https://wa.me/18097642522" target="_blank">WhatsApp: 809-764-2522</a>
+  <a class="btn btn-light" href="https://www.instagram.com/silvarte06" target="_blank">Instagram: @silvarte06</a>
+</section>
+
+</main>
+
+<div class="selection-box">
+  <p>Has seleccionado: <strong id="contador">0 productos</strong></p>
+  <p id="lista" style="font-size: 0.85rem; color: #8A8074; margin-top: 5px;">Ningún producto seleccionado</p>
+
+  <div class="selection-actions">
+    <button class="clear-btn" id="limpiar">Limpiar selección</button>
+    <button class="whatsapp-btn" id="enviar">Enviar por WhatsApp</button>
+  </div>
+</div>
+
+<script>
+  const numeroWhatsapp = "18097642522";
+  const seleccion = [];
+
+  const botones = document.querySelectorAll("[data-product]");
+  const contador = document.getElementById("contador");
+  const lista = document.getElementById("lista");
+  const limpiar = document.getElementById("limpiar");
+  const enviar = document.getElementById("enviar");
+
+  function actualizar() {
+    contador.textContent = seleccion.length === 1 ? "1 producto" : seleccion.length + " productos";
+    lista.textContent = seleccion.length ? seleccion.join(", ") : "Ningún producto seleccionado";
+
+    botones.forEach(boton => {
+      const producto = boton.dataset.product;
+      if (seleccion.includes(producto)) {
+        boton.classList.add("selected");
+        boton.textContent = "✓ Añadido";
+      } else {
+        boton.classList.remove("selected");
+        boton.textContent = "Agregar a mi selección";
+      }
+    });
+  }
+
+  botones.forEach(boton => {
+    boton.addEventListener("click", () => {
+      const producto = boton.dataset.product;
+      const existe = seleccion.indexOf(producto);
+
+      if (existe >= 0) {
+        seleccion.splice(existe, 1);
+      } else {
+        seleccion.push(producto);
+      }
+
+      actualizar();
+    });
+  });
+
+  limpiar.addEventListener("click", () => {
+    seleccion.length = 0;
+    actualizar();
+  });
+
+  enviar.addEventListener("click", () => {
+    if (seleccion.length === 0) {
+      alert("Selecciona al menos un producto.");
+      return;
+    }
+
+    const productos = seleccion.map((p, i) => `${i + 1}. ${p}`).join("\n");
+    const mensaje = `Hola, quiero cotizar estos productos de SilvArte:\n\n${productos}\n\nQuiero información sobre precio, disponibilidad y personalización.`;
+    const url = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensaje)}`;
+    window.open(url, "_blank");
+  });
+
+  actualizar();
+</script>
 
 </body>
 </html>
